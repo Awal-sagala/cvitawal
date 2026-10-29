@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awal Sagala, S.Kom. - Guru TKJ SMKN 2 Panyabungan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#0a0f1d',
+                            950: '#050811'
+                        },
+                        cyan: {
+                            400: '#38bdf8',
+                            500: '#06b6d4',
+                            600: '#0891b2'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+        }
+
+        /* Styles khusus untuk Cetak PDF */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print, nav, #contact, footer, .theme-toggle-btn {
+                display: none !important;
+            }
+            .glass-card {
+                background: transparent !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+            }
+            .gradient-text {
+                -webkit-text-fill-color: #0284c7 !important;
+            }
+            .print-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-navy-950 text-slate-200 font-sans transition-colors duration-300 dark selection:bg-cyan-500 selection:text-white">
+
+    <!-- Toast Notification Box (Anti Alert) -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-800 text-white px-6 py-3 rounded-xl shadow-2xl border border-cyan-500/30 flex items-center gap-3">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-cyan-400 text-lg"></i>
+        <span id="toast-message">Pesan berhasil terkirim!</span>
+    </div>
+
+    <!-- Navigation Bar Sticky -->
+    <nav class="fixed top-0 left-0 right-0 z-40 glass-card border-b border-slate-800/80 transition-all duration-300 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-cyan-500/20">
+                        AS
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-white tracking-wide block leading-none">Awal Sagala</span>
+                        <span class="text-xs text-cyan-400 font-medium">Guru TKJ SMKN 2 Panyabungan</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#about" class="text-slate-300 hover:text-cyan-400 transition-colors">Profil</a>
+                    <a href="#skills" class="text-slate-300 hover:text-cyan-400 transition-colors">Keahlian</a>
+                    <a href="#experience" class="text-slate-300 hover:text-cyan-400 transition-colors">Pengalaman</a>
+                    <a href="#projects" class="text-slate-300 hover:text-cyan-400 transition-colors">Portofolio</a>
+                    <a href="#education" class="text-slate-300 hover:text-cyan-400 transition-colors">Pendidikan</a>
+                    <a href="#contact" class="text-slate-300 hover:text-cyan-400 transition-colors">Kontak</a>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-print text-cyan-400"></i> Cetak / PDF
+                    </button>
+                    <a href="#contact" class="px-4 py-2 rounded-xl text-xs font-semibold gradient-bg text-white hover:opacity-90 shadow-md shadow-cyan-500/20 transition-all">
+                        Hubungi Saya
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-300 hover:bg-slate-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-navy-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-3">
+            <a href="#about" class="block text-slate-300 hover:text-cyan-400 py-1">Profil</a>
+            <a href="#skills" class="block text-slate-300 hover:text-cyan-400 py-1">Keahlian</a>
+            <a href="#experience" class="block text-slate-300 hover:text-cyan-400 py-1">Pengalaman</a>
+            <a href="#projects" class="block text-slate-300 hover:text-cyan-400 py-1">Portofolio</a>
+            <a href="#education" class="block text-slate-300 hover:text-cyan-400 py-1">Pendidikan</a>
+            <a href="#contact" class="block text-slate-300 hover:text-cyan-400 py-1">Kontak</a>
+            <div class="pt-2 flex gap-2">
+                <button onclick="window.print()" class="w-1/2 py-2 text-center rounded-lg text-xs font-semibold bg-slate-800 text-slate-200 border border-slate-700">
+                    <i class="fa-solid fa-print text-cyan-400 mr-1"></i> Cetak PDF
+                </button>
+                <a href="#contact" class="w-1/2 text-center py-2 rounded-lg text-xs font-semibold gradient-bg text-white">
+                    Hubungi
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-24">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative pt-6 pb-12 flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="flex-1 space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    Tenaga Pendidik TKJ & IT Administrator
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                    <span class="block">Awal Sagala, S.Kom.</span>
+                    <span class="gradient-text text-2xl sm:text-3xl lg:text-4xl font-semibold mt-2 block">
+                        Guru Teknik Komputer & Jaringan
+                    </span>
+                </h1>
+
+                <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                    Mendidik Generasi Digital, Membangun Infrastruktur Jaringan Masa Depan. Berdedikasi tinggi dalam mengembangkan pembelajaran berbasis praktik (hands-on) di <strong class="text-slate-200">SMKN 2 Panyabungan</strong>.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2 no-print">
+                    <button onclick="window.print()" class="px-6 py-3.5 rounded-xl font-medium text-white gradient-bg shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down"></i> Unduh CV (PDF)
+                    </button>
+                    <a href="#contact" class="px-6 py-3.5 rounded-xl font-medium text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-500/50 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-cyan-400"></i> Hubungi Saya
+                    </a>
+                </div>
+
+                <!-- Location & Quick Info -->
+                <div class="pt-4 flex flex-wrap justify-center md:justify-start gap-6 text-xs text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-cyan-400"></i> Panyabungan, Mandailing Natal
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-building-columns text-cyan-400"></i> SMKN 2 Panyabungan
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-cyan-400"></i> awalsagala@smkn2panyabungan.sch.id
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar / Photo Card -->
+            <div class="relative flex-shrink-0 w-64 h-64 sm:w-80 sm:h-80">
+                <div class="absolute -inset-1 rounded-3xl gradient-bg blur-xl opacity-40 animate-pulse"></div>
+                <div class="relative w-full h-full glass-card rounded-3xl p-4 flex flex-col items-center justify-center text-center overflow-hidden border border-slate-700">
+                    <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-slate-800 border-4 border-cyan-500/30 flex items-center justify-center mb-4 relative overflow-hidden group">
+                        <!-- SVG Avatar Vector Guru Tech -->
+                        <svg class="w-24 h-24 text-slate-400 group-hover:scale-105 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2a5 5 0 100 10 5 5 0 000-10zM4 21v-1a7 7 0 0114 0v1H4z"/>
+                        </svg>
+                        <div class="absolute bottom-1 right-1 bg-cyan-500 text-navy-950 p-1.5 rounded-full text-xs font-bold shadow">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Awal Sagala, S.Kom.</h3>
+                    <p class="text-xs text-cyan-400 mt-0.5">NIP / NUPTK Terverifikasi</p>
+                    <div class="mt-3 flex gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-[10px] text-slate-300 font-mono border border-slate-700">MikroTik</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-[10px] text-slate-300 font-mono border border-slate-700">Debian Linux</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800 text-[10px] text-slate-300 font-mono border border-slate-700">Web Dev</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS & ABOUT ME -->
+        <section id="about" class="space-y-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card p-5 rounded-2xl text-center border-b-2 border-b-cyan-500">
+                    <div class="text-3xl font-extrabold text-white gradient-text">5+ Tahun</div>
+                    <div class="text-xs text-slate-400 mt-1">Pengalaman Mengajar</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center border-b-2 border-b-indigo-500">
+                    <div class="text-3xl font-extrabold text-white gradient-text">30+ Kelas</div>
+                    <div class="text-xs text-slate-400 mt-1">Mata Pelajaran TKJ</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center border-b-2 border-b-cyan-500">
+                    <div class="text-3xl font-extrabold text-white gradient-text">100%</div>
+                    <div class="text-xs text-slate-400 mt-1">Berbasis Praktik Lab</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center border-b-2 border-b-indigo-500">
+                    <div class="text-3xl font-extrabold text-white gradient-text">200+</div>
+                    <div class="text-xs text-slate-400 mt-1">Alumni Lulus UKK</div>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 rounded-3xl space-y-6 border border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400">
+                        <i class="fa-solid fa-user-tie text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Profil & Filosofi Mengajar</h2>
+                        <p class="text-xs text-slate-400">Pendekatan Pembelajaran Vokasi Teknik Komputer & Jaringan</p>
+                    </div>
+                </div>
+
+                <div class="text-slate-300 space-y-4 leading-relaxed text-sm sm:text-base">
+                    <p>
+                        Saya adalah seorang pendidik vokasi di bidang **Teknik Komputer dan Jaringan (TKJ)** yang berdedikasi di **SMKN 2 Panyabungan**, Kabupaten Mandailing Natal. Berbekal latar belakang pendidikan S1 Teknik Informatika, saya berkomitmen untuk menjembatani teori akademis dengan kebutuhan riil industri teknologi informasi saat ini.
+                    </p>
+                    <p>
+                        Filosofi mengajar saya berpusat pada **Hands-on Learning & Problem Based Learning**. Saya percaya bahwa seorang teknisi dan administrator jaringan hebat tidak hanya lahir dari membaca modul, melainkan melalui simulasi langsung, pemecahan masalah (troubleshooting) sistem server, konfigurasi perangkat rute nyata, serta proyek-proyek aplikasi berbasis kebutuhan sekolah dan masyarakat.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- KEAHLIAN & SPESIALISASI -->
+        <section id="skills" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h2 class="text-3xl font-bold text-white">Keahlian & Spesialisasi Teknis</h2>
+                <p class="text-slate-400 text-sm">Kompetensi Inti Administrasi Jaringan, Server, & Pembelajaran Vokasi</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Skill Card 1: ASJ -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:border-cyan-500/50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-server text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-1 bg-slate-800 text-cyan-400 rounded">ASJ</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Administrasi Sistem Jaringan</h3>
+                    <p class="text-xs text-slate-400">Pengelolaan server berbasis OS Linux Debian / CentOS untuk layanan jaringan sekolah & industri.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Debian Server</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">DNS & DHCP</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Apache/Nginx</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">FTP & Samba</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Mail Server</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2: AIJ -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:border-cyan-500/50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-network-wired text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-1 bg-slate-800 text-indigo-400 rounded">AIJ</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Administrasi Infrastruktur Jaringan</h3>
+                    <p class="text-xs text-slate-400">Desain, konfigurasi, dan pengamanan router & switch untuk topologi jaringan berskala menengah.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">MikroTik RouterOS</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">VLAN & Trunking</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Routing Static/OSPF</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Firewall / iptables</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Cisco Packet Tracer</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3: Hardware & Virtualisasi -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:border-cyan-500/50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-microchip text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-1 bg-slate-800 text-cyan-400 rounded">HARDWARE</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Hardware & Virtualisasi</h3>
+                    <p class="text-xs text-slate-400">Troubleshooting perangkat keras PC, perakitan laboratorium, dan pengujian virtualisasi.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">VirtualBox & VMware</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Troubleshooting PC</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Crimping & Fiber Optic</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Interactive Panel (PID)</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 4: Web Dev -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:border-cyan-500/50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-1 bg-slate-800 text-indigo-400 rounded">WEB DEV</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Pengembangan Web & Sistem</h3>
+                    <p class="text-xs text-slate-400">Pembuatan aplikasi internal sekolah, portal media belajar interaktif, dan basis data.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">HTML5 & CSS3</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Tailwind CSS</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">JavaScript (ES6+)</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">PHP & MySQL</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 5: Pedagogik -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:border-cyan-500/50 transition-all group lg:col-span-2">
+                    <div class="flex items-center justify-between">
+                        <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chalkboard-user text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-mono px-2 py-1 bg-slate-800 text-cyan-400 rounded">PEDAGOGIK</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Keterampilan Pedagogis & Manajemen Kelas</h3>
+                    <p class="text-xs text-slate-400">Strategi pembelajaran modern yang relevan dengan Kurikulum Merdeka Vokasi.</p>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Pembelajaran Berdiferensiasi</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Media Pembelajaran Interaktif (MPI)</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Manajemen Laboratorium Komputer</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Pembimbingan UKK TKJ</span>
+                        <span class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs">Public Speaking & Motivasi</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PENGALAMAN KERJA -->
+        <section id="experience" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-white">Pengalaman & Pengabdian</h2>
+                    <p class="text-slate-400 text-sm">Rekam Jejak Mengajar dan Pengelolaan TI di Sekolah</p>
+                </div>
+            </div>
+
+            <div class="relative border-l-2 border-slate-800 ml-4 md:ml-6 space-y-12">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-8 md:pl-10 group">
+                    <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full gradient-bg border-4 border-navy-950 flex items-center justify-center text-white text-xs shadow-lg shadow-cyan-500/30">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Guru Produktif TKJ & Pengelola Lab</h3>
+                                <div class="text-cyan-400 font-medium text-sm flex items-center gap-2 mt-0.5">
+                                    <i class="fa-solid fa-school"></i> SMKN 2 Panyabungan
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono font-medium border border-cyan-500/20 w-fit">
+                                2019 - Sekarang
+                            </span>
+                        </div>
+
+                        <ul class="space-y-2.5 text-slate-300 text-sm list-disc list-inside">
+                            <li>Mengampu Mata Pelajaran Utama **Administrasi Sistem Jaringan (ASJ)** dan **Administrasi Infrastruktur Jaringan (AIJ)** untuk siswa Kelas XI & XII.</li>
+                            <li>Merancang modul ajar berbasis praktik jaringan nyata, mencakup instalasi server Linux Debian, routing MikroTik, hingga konfigurasi hotspot dan firewall sekolah.</li>
+                            <li>Mengembangkan Media Pembelajaran Interaktif (MPI) berbasis web untuk mempermudah pemahaman konsep jaringan yang abstrak.</li>
+                            <li>Mengelola dan memelihara infrastruktur jaringan serta lebih dari 40 unit komputer di Laboratorium Komputer TKJ SMKN 2 Panyabungan.</li>
+                            <li>Bertindak sebagai Ketua/Anggota Tim Penguji dan Pembimbing dalam persiapan **Uji Kompetensi Keahlian (UKK) TKJ** tahunan.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-8 md:pl-10 group">
+                    <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-800 border-4 border-navy-950 flex items-center justify-center text-slate-400 text-xs">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4 border border-slate-800 hover:border-cyan-500/40 transition-all">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Instruktur Pembimbing Ekstrakurikuler IT Club</h3>
+                                <div class="text-indigo-400 font-medium text-sm flex items-center gap-2 mt-0.5">
+                                    <i class="fa-solid fa-users"></i> SMKN 2 Panyabungan
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 text-xs font-mono border border-slate-700 w-fit">
+                                2020 - Sekarang
+                            </span>
+                        </div>
+
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Membimbing siswa-siswi berbakat dalam bidang *Web Design*, *Basic Linux Administration*, dan *Network Troubleshooting* untuk persiapan lomba LKS (Lomba Kompetensi Siswa) tingkat Kabupaten dan Provinsi.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PORTOFOLIO & KARYA -->
+        <section id="projects" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-white">Portofolio Proyek & Karya</h2>
+                    <p class="text-slate-400 text-sm">Sistem dan Aplikasi Edukasi yang Dikembangkan untuk Pembelajaran</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800 w-fit no-print">
+                    <button onclick="filterProjects('all')" class="project-tab-btn active px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-cyan-500 transition-all">Semua</button>
+                    <button onclick="filterProjects('web')" class="project-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-all">Aplikasi Web</button>
+                    <button onclick="filterProjects('edu')" class="project-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition-all">Pembelajaran</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Project 1 -->
+                <div class="project-card glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-category="web">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-[11px] font-mono">Web Application</span>
+                            <i class="fa-solid fa-microchip text-slate-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white hover:text-cyan-400 transition-colors">Generator Modul Ajar TKJ Otomatis</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Aplikasi berbasis web yang dirancang untuk membantu guru TKJ menyusun Modul Ajar dan RPP Kurikulum Merdeka secara otomatis berbasis rubrik kompetensi.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">PHP</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">MySQL</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">Bootstrap 5</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-900/60 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                        <span>Status: Digunakan Internal Sekolah</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-cyan-400"></i>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-category="edu">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-400 text-[11px] font-mono">Portal Pembelajaran</span>
+                            <i class="fa-solid fa-book-open text-slate-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white hover:text-cyan-400 transition-colors">Portal Media Pembelajaran Interaktif (MPI)</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Website interaktif berisi simulator perintah dasar Linux Debian, panduan IP Addressing & Subnetting Calculator interaktif untuk latihan mandiri siswa TKJ.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">HTML5 Canvas</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">JavaScript ES6</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">Tailwind CSS</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-900/60 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                        <span>Status: Digunakan Pembelajaran XI TKJ</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-cyan-400"></i>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-category="web">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-[11px] font-mono">Sistem Sekolah</span>
+                            <i class="fa-solid fa-id-card-clip text-slate-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white hover:text-cyan-400 transition-colors">Sistem Presensi Siswa Online berbasis Photo Capture</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Sistem absensi kehadiran laboratorium TKJ memanfaatkan verifikasi foto kamera web berbasis browser yang terhubung ke database server sekolah.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">Webcam API</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">PHP PDO</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">MySQL</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-900/60 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                        <span>Status: Implemetasi Lab Jaringan</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-cyan-400"></i>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-category="web">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-400 text-[11px] font-mono">E-Voting</span>
+                            <i class="fa-solid fa-check-to-slot text-slate-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white hover:text-cyan-400 transition-colors">E-Voting Pemilihan OSIS SMKN 2 Panyabungan</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Sistem e-voting transparan dan cepat dengan enkripsi token unik siswa untuk mendukung proses demokrasi pemilihan ketua OSIS secara real-time.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">CodeIgniter</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">Chart.js</span>
+                            <span class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">Bootstrap</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-slate-900/60 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+                        <span>Status: Digunakan Setiap Tahunan</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-cyan-400"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PENDIDIKAN & SERTIFIKASI -->
+        <section id="education" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Pendidikan -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Riwayat Pendidikan</h2>
+                        <p class="text-xs text-slate-400">Latar Belakang Akademis Resmi</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">S1 Teknik Informatika / Pendidikan TI</h3>
+                            <p class="text-cyan-400 text-xs font-medium">Universitas Negeri / Perguruan Tinggi Terakreditasi</p>
+                        </div>
+                        <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">Gelar S.Kom.</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Fokus Studi: Jaringan Komputer, Rekayasa Perangkat Lunak, Sistem Terdistribusi, dan Teknologi Pendidikan Vokasi.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sertifikasi & Pelatihan -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
+                        <i class="fa-solid fa-certificate text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Sertifikasi & Pelatihan</h2>
+                        <p class="text-xs text-slate-400">Pengembangan Profesional Profesional</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-award text-cyan-400 text-lg"></i>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">MikroTik Certified Network Associate (MTCNA)</h4>
+                                <p class="text-[11px] text-slate-400">Sertifikasi Routing & Switching MikroTik</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-cyan-400 font-mono px-2 py-0.5 bg-cyan-500/10 rounded">Tercapai</span>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-award text-cyan-400 text-lg"></i>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Pelatihan Guru Kejuruan TKJ Kurikulum Merdeka</h4>
+                                <p class="text-[11px] text-slate-400">BBPPMPV BMTI / Dinas Pendidikan</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-cyan-400 font-mono px-2 py-0.5 bg-cyan-500/10 rounded">Sertifikat</span>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-award text-cyan-400 text-lg"></i>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Sertifikat Kompetensi Instruktur Vokasi</h4>
+                                <p class="text-[11px] text-slate-400">Badan Nasional Sertifikasi Profesisi (BNSP)</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-cyan-400 font-mono px-2 py-0.5 bg-cyan-500/10 rounded">BNSP</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- KONTAK & FORM -->
+        <section id="contact" class="glass-card rounded-3xl p-8 sm:p-12 border border-slate-800 space-y-8 no-print">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Info Kontak -->
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-semibold uppercase tracking-wider">Hubungi Saya</span>
+                        <h2 class="text-3xl font-bold text-white">Mari Berdiskusi & Berkolaborasi</h2>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Terbuka untuk diskusi seputar pembelajaran TKJ, pengujian UKK, kerja sama industri dengan SMKN 2 Panyabungan, serta pengembangan media edukasi berbasis IT.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">Email Resmi / Sekolah</div>
+                                <div class="text-sm font-semibold text-white">awalsagala@smkn2panyabungan.sch.id</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">WhatsApp / Kontak Langsung</div>
+                                <div class="text-sm font-semibold text-white">+62 812-3456-7890</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <div class="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-400">Lokasi Tugas</div>
+                                <div class="text-sm font-semibold text-white">SMKN 2 Panyabungan, Mandailing Natal, Sumatera Utara</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Pesan Interaktif -->
+                <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4 bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
+                    <h3 class="text-lg font-bold text-white mb-2">Kirim Pesan Langsung</h3>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Nama Lengkap</label>
+                        <input type="text" required placeholder="Masukkan nama Anda..." class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-500 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Email / Kontak</label>
+                        <input type="email" required placeholder="email@contoh.com" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-500 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Subjek / Keperluan</label>
+                        <select class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-500 transition-colors">
+                            <option>Diskusi Pembelajaran TKJ</option>
+                            <option>Undangan Penguji UKK / Pemateri</option>
+                            <option>Kerja Sama Industri / Sekolah</option>
+                            <option>Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Pesan / Catatan</label>
+                        <textarea rows="4" required placeholder="Tuliskan pesan Anda secara ringkas di sini..." class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-500 transition-colors resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-xl font-semibold text-white gradient-bg hover:opacity-90 transition-all shadow-md shadow-cyan-500/20 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-sm"></i> Kirim Pesan Now
+                    </button>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-navy-900/80 py-8 text-center text-xs text-slate-500 no-print">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <div class="flex justify-center items-center gap-2">
+                <span class="font-bold text-slate-300">Awal Sagala, S.Kom.</span>
+                <span>•</span>
+                <span>Guru TKJ SMKN 2 Panyabungan</span>
+            </div>
+            <p>© 2026 Curriculum Vitae Interaktif. Dibuat dengan dedikasi untuk kemajuan Pendidikan Vokasi Indonesia.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT CODE -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Filter Portofolio Projects
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const btns = document.querySelectorAll('.project-tab-btn');
+
+            // Update active tab style
+            btns.forEach(btn => {
+                btn.classList.remove('active', 'bg-cyan-500', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+
+            event.target.classList.add('active', 'bg-cyan-500', 'text-white');
+            event.target.classList.remove('text-slate-400');
+
+            // Show/Hide Cards
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Custom Toast Notification (Replacing Alert)
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMessage.textContent = message;
+            
+            if (isSuccess) {
+                toastIcon.className = "fa-solid fa-circle-check text-cyan-400 text-lg";
+            } else {
+                toastIcon.className = "fa-solid fa-circle-xmark text-red-400 text-lg";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Simulasi pengiriman pesan
+            showToast("Terima kasih! Pesan Anda telah terkirim kepada Awal Sagala, S.Kom.");
+            
+            // Reset form input
+            document.getElementById('contact-form').reset();
+        }
+    </script>
+</body>
+</html>
